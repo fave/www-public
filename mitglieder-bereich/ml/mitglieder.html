@@ -1,0 +1,108 @@
+<html>
+
+<!-- Mirrored from www.fave.aero/mitglieder-bereich/ml/mitglieder.php by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Apr 2017 12:21:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head></head>
+<style type=text/css>
+	table 		{width:400px;}
+  td.header {width:400px; border-width: 1px; border-style: ridge; border-color: #000000; background-color:#3173aa; padding: 0px; margin: 0px; font-family: arial; font-size:15px; color:#ffffff;}
+  td.bild   {width:100px; border-width: 0px; border-style: solid; border-color: #000000; background-color:#ffffff; padding: 0px; margin: 0px; font-family: arial; font-size:12px; color:#ffffff; vertical-align:top;}
+  td.a      {width:150px; border-width: 0px; border-style: solid; border-color: #000000; background-color:#cacaca; padding: 0px; margin: 0px; font-family: arial; font-size:12px; color:#000000;}
+  td.b      {width:150px; border-width: 0px; border-style: solid; border-color: #000000; background-color:#ffffff; padding: 0px; margin: 0px; font-family: arial; font-size:12px; color:#000000;}
+</style>
+<body>
+<center>
+<img src="ml-oben.jpg">
+<br><br>
+<font face=arial color="#6196C3"><b>Mitgliederliste FAVE e.V.
+<br><br>
+</b></font>
+<img src="ml-desbg.jpg" border=1>
+
+<?
+//... Datenbankparameter festlegen, Variablen initialisieren
+$db   = "fave";
+$host = "localhost";
+$user = "fave00";
+$pass = "d-esbg";
+
+//... Hauptfunktion für SQL-Datenabruf 
+function getSQLrecord($abfrage)
+{
+
+global $db;
+global $host;
+global $user;
+global $pass;
+
+//... Verbindung mit der SQL-Datenbank herstellen
+$verbindung = @mysql_connect($host,$user,$pass);
+
+//...Prüfen, ob die Verbindung steht
+if (!$verbindung) 
+ {
+   echo "Keine Verbindung zur Datenbank m&ouml;glich!";
+   exit;
+ }
+
+//...Abfrage ausführen und Ergebnis in Variable 'erg' ablegen (enthält alle Datensätze)
+$erg = mysql_db_query($db,$abfrage,$verbindung);
+
+//...Zeilenweise die abgefragten Felder auslesen 
+while (list($f1,$f2,$f3,$f4,$f5,$f6,$f7,$f8,$f9,$f10,$f11,$f12,$f13,$f14,$f15,$f16,$f17,$f18,$f19,$f20,$f21,$f22) = mysql_fetch_row($erg))
+ {
+ 	echo "
+	<br><br>
+	<table border=0>
+	<tr>
+	<td class=header colspan=2><center><b>$f2</b></center></td>
+	</tr>
+	<tr>
+	<td class=bild><font color='#000000'><img src=%24f22.html border=1 vspace=3></font></td>
+	<td>
+	<table>
+	<tr><td class=a>Name</td><td class=a><b>$f3</b></td></tr>
+	<tr><td class=b>Vorname</td><td class=b><b>$f4</b></td></tr>
+	<tr><td class=a>Strasse</td><td class=a>$f5</td></tr>
+	<tr><td class=b>PLZ Wohnort</td><td class=b>$f6 $f7</td></tr>
+	<tr><td class=a>Telefon privat</td><td class=a>$f8</td></tr>
+	<tr><td class=b>Telefon Gesch&auml;ft</td><td class=b>$f9</td></tr>
+	<tr><td class=a>Telefon Handy</td><td class=a>$f10</td></tr>
+	<tr><td class=b>Email</td><td class=b><a href=mailto:$f11>$f11</a></td></tr>
+	<tr><td class=a>Geburtsdatum</td><td class=a>$f12</td></tr>
+	<tr><td class=b>Vereinst&auml;tigkeit</td><td class=b>$f13</td>
+	<tr><td class=a>Flugsch&uuml;ler/Fluglehrer</td><td class=a>$f15</td></tr>
+	<tr><td class=b>Sparte</td><td class=b>$f14</td></tr>
+	<tr><td class=a>PPL(s)</td><td class=a>$f16</td></tr>
+	<tr><td class=b>Funk</td><td class=b>$f17</td></tr>
+	<tr><td class=a>Klasse(n)</td><td class=a>$f18</td></tr>
+	<tr><td class=b>Typ(en)</td><td class=b>$f19</td></tr>
+	<tr><td class=a>Mitglied seit</td><td class=a>$f20</td></tr>
+	</table>
+	</td>
+	</tr>
+	<tr>
+	<td class=header colspan=2>&nbsp;</td>
+	</tr>
+	</table>
+  ";
+ }
+
+//...Verbindung zur Datenbank schließen
+mysql_close($verbindung);
+}
+
+//...Abfrage für Mitgliederliste: SQL-Befehg festlegen
+$query = "SELECT * FROM mitglieder ORDER BY name";
+
+//...Adressen abfragen
+getSQLrecord("$query");
+
+?>
+
+<img src="ml-unten.jpg">
+</center>
+</body>
+
+<!-- Mirrored from www.fave.aero/mitglieder-bereich/ml/mitglieder.php by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Apr 2017 12:21:31 GMT -->
+</html>
