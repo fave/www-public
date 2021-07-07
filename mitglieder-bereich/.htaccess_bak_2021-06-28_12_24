@@ -1,8 +1,0 @@
-AuthType Basic
-AuthName "Mitgliederbereich FAVE"
-Order Deny,Allow
-Deny from all
-Satisfy Any
-Allow from env=!HTTPS
-Require valid-user
-
